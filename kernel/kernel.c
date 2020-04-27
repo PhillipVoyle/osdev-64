@@ -1,6 +1,8 @@
 #include "machine.h"
 #include "screen.h"
 #include "idt_setup.h"
+#include "timer.h"
+#include "keyboard.h"
 
 void Kernel_Hang()
 {
@@ -12,10 +14,11 @@ void Kernel_Hang()
 
 void Kernel_Main(void)
 {
+    VGA_WriteString("Phillip Voyle OSDEV Project.\n");
     VGA_ClearScreen();
-    VGA_WriteString("Setting up IDT\n");
     idt_init();
-    VGA_WriteString("Set up IDT OK\n");
+
+    Init_Timer();
 
     asm("sti");
 
@@ -41,24 +44,15 @@ void Panic(const char* reason)
     asm ("hlt");
 }
 
-int tick_count = 0;
-
 void irq0_handler(void)
 {
-    tick_count ++;
-    if (tick_count >= 16) {
-        tick_count = 0;
-        VGA_WriteString("Tick\n");
-    }
+    On_Timer_Tick();
     outb(0x20, 0x20); //EOI
 }
 
 void irq1_handler(void)
 {
-    int byte = inb(0x60);
-    VGA_WriteChar('0' + byte / 100, VGA_COLOUR_RED);
-    VGA_WriteChar('0' + byte % 100 / 10, VGA_COLOUR_RED);
-    VGA_WriteChar('0' + byte % 10, VGA_COLOUR_RED);
+    On_KeyStroke();
     outb(0x20, 0x20); //EOI
 }
 

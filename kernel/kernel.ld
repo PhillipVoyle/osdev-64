@@ -58,7 +58,11 @@ SECTIONS
     *(.bss*)
   }
 
+  .eh_frame_hdr : AT ( (LOADADDR (.bss) + SIZEOF (.bss) + 0xFFF) & 0xFFFFFFFFFFFFF000 )
+  {
+    *(.eh_frame*)
+  }
   _kernel_virtual_end = .;
 
-  _kernel_physical_end = (LOADADDR (.bss) + SIZEOF (.bss) + 0xFFF) & 0xFFFFFFFFFFFFF000;
+  _kernel_physical_end = (LOADADDR (.eh_frame_hdr) + SIZEOF (.eh_frame_hdr) + 0xFFF) & 0xFFFFFFFFFFFFF000;
 }

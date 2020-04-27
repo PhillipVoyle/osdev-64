@@ -10,6 +10,8 @@ OBJS += machine.o
 OBJS += screen.o
 OBJS += idt_asm.o
 OBJS += idt_setup.o
+OBJS += keyboard.o
+OBJS += timer.o
 
 DFILES = $(patsubst %.o,%.d,$(OBJS))
 
