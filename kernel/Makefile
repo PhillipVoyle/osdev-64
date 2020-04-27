@@ -6,13 +6,17 @@ ASFLAGS = $(SHARED_FLAGS) -Wa,--divide
 
 OBJS := boot.o
 OBJS += kernel.o
+OBJS += machine.o
+OBJS += screen.o
+OBJS += idt_asm.o
+OBJS += idt_setup.o
 
 DFILES = $(patsubst %.o,%.d,$(OBJS))
 
 all: kernel
 
 kernel: $(OBJS) kernel.ld Makefile
-	$(CC) -z max-page-size=0x1000 $(CFLAGS) -no-pie -Wl,--build-id=none -T kernel.ld -o $@ $(OBJS)
+	$(CC) $(CFLAGS) -no-pie -Wl,--build-id=none -T kernel.ld -o $@ $(OBJS)
 
 clean:
 	find -name "*~" -delete

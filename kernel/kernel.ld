@@ -27,26 +27,27 @@ SECTIONS
   . = ALIGN(0x1000);
   _boot_end = .;
 
+  /* high half logic in kernel */
   . += 0xFFFFFFFF80000000;
   _kernel_virtual_start = .;
   .text : AT(_boot_end)
   {
-    *(.multiboot)
-    *(.text)
+    *(.multiboot*)
+    *(.text*)
   }
 
   . = ALIGN(0x1000);
 
   .rodata : AT ( (LOADADDR (.text) + SIZEOF (.text) + 0xFFF) & 0xFFFFFFFFFFFFF000 )
   {
-    *(.rodata)
+    *(.rodata*)
   }
 
   . = ALIGN(0x1000);
 
   .data : AT ( (LOADADDR (.rodata) + SIZEOF (.rodata) + 0xFFF) & 0xFFFFFFFFFFFFF000 )
   {
-    *(.data)
+    *(.data*)
   }
 
   . = ALIGN(0x1000);
@@ -54,7 +55,7 @@ SECTIONS
   .bss : AT ( (LOADADDR (.data) + SIZEOF (.data) + 0xFFF) & 0xFFFFFFFFFFFFF000 )
   {
     *(COMMON)
-    *(.bss)
+    *(.bss*)
   }
 
   _kernel_virtual_end = .;

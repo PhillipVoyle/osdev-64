@@ -41,7 +41,7 @@ gdt_table_end:
         .skip (GDT_TABLE_SIZE - (gdt_table_end - gdt_table))
 
 gdt_ptr:
-         .short GDT_TABLE_SIZE - 1
+         .short 16
          .long gdt_table
 
 
@@ -118,6 +118,9 @@ _start64:
         movw %ax, %gs
         movw %ax, %ss
 
+
+
+_startLong:
         call Kernel_Main
 
         // Should never reach here

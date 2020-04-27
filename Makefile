@@ -20,7 +20,7 @@ kernel:
 	make -C kernel all
 
 qemu: $(ISO_FILE)
-	qemu-system-x86_64 -cdrom $(ISO_FILE) -serial stdio -m 1024M
+	qemu-system-x86_64 -cdrom $(ISO_FILE) -serial stdio -m 1024M --no-reboot
 
 clean:
 	make -C kernel clean

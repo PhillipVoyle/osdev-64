@@ -1,7 +1,8 @@
-# Code for x86 long mode kernel boot blog post
+# Kernel Development Hobby Project
 
-Blog post can be found at:
-[http://ringzeroandlower.com/2017/08/08/x86-64-kernel-boot.html](http://ringzeroandlower.com/2017/08/08/x86-64-kernel-boot.html)
+
+This project contains boot code written by Eric Missner and originally forked from the following repository 
+[https://github.com/missimer/x86-64-kernel-boot](https://github.com/missimer/x86-64-kernel-boot)
 
 To build run `make`
 
