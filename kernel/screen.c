@@ -83,10 +83,14 @@ void VGA_SetTextColour(unsigned char colour)
 }
 void VGA_SetTerminalPosition(int row, int col);
 
-void VGA_WriteChar(char c, unsigned char colour)
+void DebugWriteChar(char c)
 {
     outb(0x3F8, c); //debug serial
+}
 
+void VGA_WriteChar(char c, unsigned char colour)
+{
+    
     int cursorPos = GetCursorPosition();
     unsigned char *video = ((unsigned char *)VIDEO_START);
 

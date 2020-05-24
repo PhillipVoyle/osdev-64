@@ -12,6 +12,31 @@ void Kernel_Hang()
     }
 }
 
+void On_Char(char c)
+{
+    VGA_WriteChar(c, VGA_COLOUR_WHITE);
+}
+
+void On_Direction(Direction d)
+{
+    if (d == left)
+    {
+        VGA_WriteString("left\n");
+    }
+    else if (d == right)
+    {
+        VGA_WriteString("right\n");
+    }
+    else if (d == up)
+    {
+        VGA_WriteString("up\n");
+    }
+    else if (d == down)
+    {
+        VGA_WriteString("down\n");
+    }
+}
+
 void Kernel_Main(void)
 {
     VGA_WriteString("Phillip Voyle OSDEV Project.\n");
